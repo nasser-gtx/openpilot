@@ -52,7 +52,7 @@ _os_fisheye = CameraConfig(2688 // 2, 1520 // 2, 567.0 / 4 * 3)
 _ar_ox_config = DeviceCameraConfig(CameraConfig(1928, 1208, 2648.0), _ar_ox_fisheye, _ar_ox_fisheye)
 
   # C3/C3X with swapped OS04C10 sensor - use C3 lens focal length
-_os_fcam = CameraConfig(2688 // 2, 1520 // 2, 2648.0 * 3 / 4)
+_os_fcam = CameraConfig(2688 // 2, 1520 // 2, 1522.0 * 3 / 4)
 _os_config = DeviceCameraConfig(_os_fcam, _os_fisheye, _os_fisheye)
 _neo_config = DeviceCameraConfig(CameraConfig(1164, 874, 910.0), CameraConfig(816, 612, 650.0), _NoneCameraConfig())
 
