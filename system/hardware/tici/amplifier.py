@@ -74,7 +74,7 @@ CONFIGS = {
     *configs_from_eq_params(0xA2, EQParams(0x091F, 0x3D4C, 0xCE11, 0x1266, 0x2807)),
     *configs_from_eq_params(0xAC, EQParams(0x0A9E, 0x3F20, 0xE573, 0x0A8B, 0x3A3B)),
   ],
-  "tizi": [
+  "tici": [
     AmpConfig("Left speaker output from left DAC", 0b1, 0x2B, 0, 0b11111111),
     AmpConfig("Right speaker output from right DAC", 0b1, 0x2C, 0, 0b11111111),
     AmpConfig("Left Speaker Mixer Gain", 0b00, 0x2D, 0, 0b00000011),
@@ -125,7 +125,7 @@ class Amplifier:
 
   def set_configs(self, configs: list[AmpConfig]) -> bool:
     # retry in case panda is using the amp
-    tries = 15
+    tries = 1
     backoff = 0.
     for i in range(tries):
       try:

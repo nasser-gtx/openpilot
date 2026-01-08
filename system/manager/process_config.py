@@ -77,7 +77,7 @@ def and_(*fns):
 procs = [
   DaemonProcess("manage_athenad", "system.athena.manage_athenad", "AthenadPid"),
 
-  NativeProcess("loggerd", "system/loggerd", ["./loggerd"], logging),
+  #NativeProcess("loggerd", "system/loggerd", ["./loggerd"], logging),
   NativeProcess("encoderd", "system/loggerd", ["./encoderd"], only_onroad),
   NativeProcess("stream_encoderd", "system/loggerd", ["./encoderd", "--stream"], or_(notcar, and_(dashy_with_video, only_onroad))),
   PythonProcess("logmessaged", "system.logmessaged", always_run),
@@ -86,7 +86,7 @@ procs = [
   PythonProcess("webcamerad", "tools.webcam.camerad", driverview, enabled=WEBCAM),
   PythonProcess("proclogd", "system.proclogd", only_onroad, enabled=platform.system() != "Darwin"),
   PythonProcess("journald", "system.journald", only_onroad, platform.system() != "Darwin"),
-  PythonProcess("micd", "system.micd", iscar, enabled=not LITE),
+  #PythonProcess("micd", "system.micd", iscar, enabled=not LITE),
   PythonProcess("timed", "system.timed", always_run, enabled=not PC),
 
   PythonProcess("modeld", "selfdrive.modeld.modeld", only_onroad),
@@ -121,6 +121,7 @@ procs = [
   PythonProcess("updated", "system.updated.updated", only_offroad, enabled=not PC),
   PythonProcess("uploader", "system.loggerd.uploader", comma_connect and always_run),
   PythonProcess("statsd", "system.statsd", always_run),
+  PythonProcess("beep", "selfdrive.selfdrived.beep", always_run),
   PythonProcess("feedbackd", "selfdrive.ui.feedback.feedbackd", only_onroad, enabled=not LITE),
 
   # debug procs
