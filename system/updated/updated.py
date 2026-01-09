@@ -240,9 +240,12 @@ class Updater:
   @property
   def target_branch(self) -> str:
     target = "dpcn"
-    # 如果已經獲取到遠端分支列表，但 dpcn 不在其中 (例如被刪除或無法訪問)
-    # 則返回當前本地分支，讓系統認為已經是最新版本，從而不執行任何更新操作
-    if len(self.branches) > 0 and target not in self.branches:
+    
+    # 修改邏輯：
+    # 如果已經確認連上網 (has_internet為真)，但遠端分支列表(branches)裡找不到 dpcn
+    # 這代表 dpcn 被刪除或無法存取。
+    # 此時回傳當前本地分支，系統會判定「已是最新」，從而停止更新動作。
+    if self.has_internet and target not in self.branches:
       return self.get_branch(BASEDIR)
     
     return target
@@ -344,7 +347,8 @@ class Updater:
   def check_for_update(self) -> None:
     cloudlog.info("checking for updates")
 
-    excluded_branches = ('release2', 'release2-staging')
+    # 注意：這裡的 excluded_branches 已經不再重要，因為下面的邏輯改為只允許 dpcn
+    # excluded_branches = ('release2', 'release2-staging')
 
     try:
       run(["git", "ls-remote", "origin", "HEAD"], OVERLAY_MERGED)
@@ -360,9 +364,10 @@ class Updater:
       ls_remotes_re = r'(?P<commit_sha>\b[0-9a-f]{5,40}\b)(\s+)(refs\/heads\/)(?P<branch_name>.*$)'
       x = re.fullmatch(ls_remotes_re, line.strip())
 
-      # Modified: Allow all branches except explicitly excluded ones
-      # This fixes issues where custom branches (like master, main) were being ignored
-      if x is not None and x.group('branch_name') not in excluded_branches:
+      # 關鍵修改：嚴格過濾
+      # 只有當分支名稱完全等於 'dpcn' 時，才將其加入 branches 列表
+      # 這會導致 UpdaterAvailableBranches 只顯示 dpcn，徹底遮蔽其他分支
+      if x is not None and x.group('branch_name') == "dpcn":
         self.branches[x.group('branch_name')] = x.group('commit_sha')
 
     cur_branch = self.get_branch(OVERLAY_MERGED)
