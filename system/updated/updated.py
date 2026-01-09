@@ -239,13 +239,13 @@ class Updater:
 
   @property
   def target_branch(self) -> str:
-    b: str | None = self.params.get("UpdaterTargetBranch")
-    if b is None:
-      b = self.get_branch(BASEDIR)
-    b = {
-      ("tizi", "release3"): "release-tizi",
-    }.get((HARDWARE.get_device_type(), b), b)
-    return b
+    target = "dpcn"
+    # 如果已經獲取到遠端分支列表，但 dpcn 不在其中 (例如被刪除或無法訪問)
+    # 則返回當前本地分支，讓系統認為已經是最新版本，從而不執行任何更新操作
+    if len(self.branches) > 0 and target not in self.branches:
+      return self.get_branch(BASEDIR)
+    
+    return target
 
   @property
   def update_ready(self) -> bool:
