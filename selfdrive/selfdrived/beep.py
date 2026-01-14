@@ -14,7 +14,7 @@ class Beepd:
     #self.startup_beep()
 
   def enable_gpio(self):
-    # 尝试 export，忽略已 export 的错误
+    # محاولة export وتجاهل الخطأ إذا كان معمول له export مسبقًا
     try:
       subprocess.run("echo 42 | sudo tee /sys/class/gpio/export",
                      shell=True,
@@ -115,7 +115,7 @@ class Beepd:
 
 def main():
   s = Beepd()
-  s.beepd_thread(test=False)  # 改成 True 可启用模拟测试数据
+  s.beepd_thread(test=False)  # غيّرها إلى True لتفعيل اختبار محاكاة البيانات
 
 if __name__ == "__main__":
   main()
