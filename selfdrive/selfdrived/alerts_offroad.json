@@ -1,53 +1,53 @@
 {
   "Offroad_TemperatureTooHigh": {
-    "text": "Device temperature too high. System cooling down before starting. Current internal component temperature: %1",
+    "text": "درجة حرارة الجهاز مرتفعة جدًا. النظام يبرد قبل التشغيل. درجة حرارة مكونات الجهاز الداخلية الحالية: %1",
     "severity": 0
   },
   "Offroad_ConnectivityNeededPrompt": {
-    "text": "Immediately connect to the internet to check for updates. If you do not connect to the internet, sunnypilot won't engage in %1",
+    "text": "اتصل بالإنترنت فورًا للتحقق من التحديثات. إذا ما اتصلت بالإنترنت، القائد الآلي ما راح يشتغل خلال %1",
     "severity": 0,
     "_comment": "Set extra field to number of days"
   },
   "Offroad_ConnectivityNeeded": {
-    "text": "Connect to internet to check for updates. sunnypilot won't automatically start until it connects to internet to check for updates.",
+    "text": "اتصل بالإنترنت للتحقق من التحديثات. القائد الآلي ما راح يبدأ تلقائيًا لين يتصل بالإنترنت ويتحقق من التحديثات.",
     "severity": 1
   },
   "Offroad_UpdateFailed": {
-    "text": "Unable to download updates\n%1",
+    "text": "تعذر تنزيل التحديثات\n%1",
     "severity": 1,
     "_comment": "Set extra field to the failed reason."
   },
   "Offroad_IsTakingSnapshot": {
-    "text": "Taking camera snapshots. System won't start until finished.",
+    "text": "جاري أخذ لقطات من الكاميرا. النظام ما راح يبدأ لين تكتمل العملية.",
     "severity": 0
   },
   "Offroad_NeosUpdate": {
-    "text": "An update to your device's operating system is downloading in the background. You will be prompted to update when it's ready to install.",
+    "text": "جاري تنزيل تحديث لنظام تشغيل الجهاز في الخلفية. راح يطلب منك التحديث لما يصير جاهز للتثبيت.",
     "severity": 0
   },
   "Offroad_UnregisteredHardware": {
-    "text": "Device failed to register with the comma.ai backend. It will not connect or upload to comma.ai servers, and receives no support from comma.ai. If this is a device purchased at comma.ai/shop, open a ticket at https://comma.ai/support.",
+    "text": "فشل الجهاز في التسجيل مع خوادم NMK AI. ما راح يتصل أو يرفع البيانات لخوادم NMK AI، وما راح يحصل على دعم من NMK AI. إذا كان هذا الجهاز مشتري من متجر الشركة، افتح تذكرة دعم عبر: https://comma.ai/support.",
     "severity": 1
   },
   "Offroad_CarUnrecognized": {
-    "text": "sunnypilot was unable to identify your car. Your car is either unsupported or its ECUs are not recognized. Please submit a pull request to add the firmware versions to the proper vehicle. Need help? Join discord.comma.ai.",
+    "text": "القائد الآلي ما قدر يتعرف على سيارتك. إما أن سيارتك غير مدعومة أو أن وحدات ECU غير معروفة. فضلاً أرسل Pull Request لإضافة إصدارات الفيرموير للمركبة المناسبة. تحتاج مساعدة؟ انضم إلى مجتمع الدعم.",
     "severity": 0
   },
   "Offroad_Recalibration": {
-    "text": "sunnypilot detected a change in the device's mounting position. Ensure the device is fully seated in the mount and the mount is firmly secured to the windshield.",
+    "text": "القائد الآلي اكتشف تغيير في موضع تثبيت الجهاز. تأكد أن الجهاز راكب بالكامل في القاعدة وأن القاعدة مثبتة بإحكام على الزجاج الأمامي.",
     "severity": 0
   },
   "Offroad_OSMUpdateRequired": {
-    "text": "OpenStreetMap database is out of date. New maps must be downloaded if you wish to continue using OpenStreetMap data for Enhanced Speed Control and road name display.\n\n%1",
+    "text": "قاعدة بيانات OpenStreetMap قديمة. لازم تحميل خرائط جديدة إذا تبي تواصل استخدام بيانات OpenStreetMap للتحكم المحسن بالسرعة وعرض اسم الطريق.\n\n%1",
     "severity": 0
   },
   "Offroad_ExcessiveActuation": {
-    "text": "openpilot detected excessive %1 actuation on your last drive. Please contact support at https://comma.ai/support and share your device's Dongle ID for troubleshooting.",
+    "text": "القائد الآلي اكتشف تحكم مفرط في %1 خلال آخر مشوار. فضلاً تواصل مع الدعم وشارك رقم Dongle ID الخاص بجهازك لأجل التشخيص.\nhttps://comma.ai/support",
     "severity": 1,
     "_comment": "Set extra field to lateral or longitudinal."
   },
   "Offroad_TiciSupport": {
-    "text": "<b>Unsupported branch detected</b> - The current version of <b><u>%1</u></b> branch is no longer supported on the comma three. Please go to <b>[Device > Software]</b> and install a supported branch with <b><u>-tici</u></b> in the branch name for the comma three.",
+    "text": "<b>تم اكتشاف فرع غير مدعوم</b> - الإصدار الحالي من فرع <b><u>%1</u></b> لم يعد مدعومًا على جهاز NMK Three. فضلاً اذهب إلى <b>[Device > Software]</b> وثبّت فرع مدعوم يحتوي <b><u>-tici</u></b> في اسم الفرع لجهاز NMK Three.",
     "severity": 1,
     "_comment": "Set extra field to the current branch name."
   }
