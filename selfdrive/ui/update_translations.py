@@ -27,7 +27,7 @@ def generate_translations_include():
 def update_translations(vanish: bool = False, translation_files: None | list[str] = None, translations_dir: str = TRANSLATIONS_DIR):
   if translation_files is None:
     with open(LANGUAGES_FILE) as f:
-      translation_files = json.load(f).values()
+      translation_files = [lang for lang in json.load(f).values() if lang != "main_ar"]
 
   for file in translation_files:
     tr_file = os.path.join(translations_dir, f"{file}.ts")

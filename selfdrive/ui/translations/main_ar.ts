@@ -188,11 +188,11 @@ Please use caution when using this feature. Only use the blinker when traffic an
     </message>
     <message>
         <source>openpilot Longitudinal Control (Alpha)</source>
-        <translation>التحكم الطولي openpilot (ألفا)</translation>
+        <translation>التحكم الطولي القائد الآلي (ألفا)</translation>
     </message>
     <message>
         <source>WARNING: openpilot longitudinal control is in alpha for this car and will disable Automatic Emergency Braking (AEB).</source>
-        <translation>تحذير: التحكم الطولي في openpilot في المرحلة ألفا لهذه السيارة، وسيقوم بتعطيل مكابح الطوارئ الآلية (AEB).</translation>
+        <translation>تحذير: التحكم الطولي في القائد الآلي في المرحلة ألفا لهذه السيارة، وسيقوم بتعطيل مكابح الطوارئ الآلية (AEB).</translation>
     </message>
     <message>
         <source>Enable ADB</source>
@@ -200,7 +200,7 @@ Please use caution when using this feature. Only use the blinker when traffic an
     </message>
     <message>
         <source>ADB (Android Debug Bridge) allows connecting to your device over USB or over the network. See https://docs.comma.ai/how-to/connect-to-comma for more info.</source>
-        <translation>أداة ADB (Android Debug Bridge) تسمح بالاتصال بجهازك عبر USB أو عبر الشبكة. راجع هذا الرابط: https://docs.comma.ai/how-to/connect-to-comma لمزيد من المعلومات.</translation>
+        <translation>أداة ADB (Android Debug Bridge) تسمح بالاتصال بجهازك عبر USB أو عبر الشبكة. راجع هذا الرابط: https://docs.nmk.sa/how-to/connect-to-comma لمزيد من المعلومات.</translation>
     </message>
     <message>
         <source>On this car, sunnypilot defaults to the car&apos;s built-in ACC instead of openpilot&apos;s longitudinal control. Enable this to switch to openpilot longitudinal control. Enabling Experimental mode is recommended when enabling openpilot longitudinal control alpha.</source>
@@ -383,7 +383,7 @@ This only toggles the visibility of the controls; it does not toggle the actual 
     </message>
     <message>
         <source>Pair your device with comma connect (connect.comma.ai) and claim your comma prime offer.</source>
-        <translation>اقرن جهازك بجهاز (connect.comma.ai) واحصل على عرضك من comma prime.</translation>
+        <translation>اقرن جهازك بجهاز (nmk.sa) واحصل على عرضك من NMK Prime.</translation>
     </message>
     <message>
         <source>Pair Device</source>
@@ -1583,7 +1583,7 @@ Warning: You are on a metered connection!</source>
     </message>
     <message>
         <source>Go to https://connect.comma.ai on your phone</source>
-        <translation>انتقل إلى https://connect.comma.ai على جوالك</translation>
+        <translation>انتقل إلى https://nmk.sa على جوالك</translation>
     </message>
     <message>
         <source>Click &quot;add new device&quot; and scan the QR code on the right</source>
@@ -1591,7 +1591,7 @@ Warning: You are on a metered connection!</source>
     </message>
     <message>
         <source>Bookmark connect.comma.ai to your home screen to use it like an app</source>
-        <translation>اجعل لـconnect.comma.ai إشارة مرجعية على شاشتك  الرئيسية من أجل استخدامه مثل أي تطبيق</translation>
+        <translation>اجعل لـnmk.sa إشارة مرجعية على شاشتك  الرئيسية من أجل استخدامه مثل أي تطبيق</translation>
     </message>
     <message>
         <source>Please connect to Wi-Fi to complete initial pairing</source>
@@ -1707,7 +1707,7 @@ Warning: You are on a metered connection!</source>
     </message>
     <message>
         <source>Become a comma prime member at connect.comma.ai</source>
-        <translation>كن عضوًا في comma prime على connect.comma.ai</translation>
+        <translation>كن عضوًا في NMK Prime على nmk.sa</translation>
     </message>
     <message>
         <source>PRIME FEATURES:</source>
@@ -1738,7 +1738,7 @@ Warning: You are on a metered connection!</source>
     </message>
     <message>
         <source>comma prime</source>
-        <translation>comma prime</translation>
+        <translation>NMK Prime</translation>
     </message>
 </context>
 <context>
@@ -1944,7 +1944,7 @@ Data</source>
     </message>
     <message>
         <source>Pair your device with comma connect (connect.comma.ai) and claim your comma prime offer.</source>
-        <translation>اقرن جهازك بجهاز (connect.comma.ai) واحصل على عرضك من comma prime.</translation>
+        <translation>اقرن جهازك بجهاز (nmk.sa) واحصل على عرضك من NMK Prime.</translation>
     </message>
     <message>
         <source>Pair device</source>
@@ -2564,7 +2564,7 @@ Data</source>
     </message>
     <message>
         <source>openpilot longitudinal control may come in a future update.</source>
-        <translation>قد يتم الحصول على التحكم الطولي في openpilot في عمليات التحديث المستقبلية.</translation>
+        <translation>قد يتم الحصول على التحكم الطولي في القائد الآلي في عمليات التحديث المستقبلية.</translation>
     </message>
     <message>
         <source>The driving visualization will transition to the road-facing wide-angle camera at low speeds to better show some turns. The Experimental mode logo will also be shown in the top right corner.</source>
@@ -2836,7 +2836,7 @@ Bottom</source>
     </message>
     <message>
         <source>Maximize your training data uploads to improve openpilot&apos;s driving models.</source>
-        <translation>قم بزيادة تحميلات بيانات التدريب الخاصة بك لتحسين نماذج القيادة الخاصة بـ openpilot.</translation>
+        <translation>قم بزيادة تحميلات بيانات التدريب الخاصة بك لتحسين نماذج القيادة الخاصة بـ القائد الآلي.</translation>
     </message>
     <message>
         <source>&lt;span style=&apos;font-family: &quot;Noto Color Emoji&quot;;&apos;&gt;🔥&lt;/span&gt; Firehose Mode &lt;span style=&apos;font-family: Noto Color Emoji;&apos;&gt;🔥&lt;/span&gt;</source>
