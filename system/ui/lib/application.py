@@ -35,15 +35,17 @@ FONT_DIR = ASSETS_DIR.joinpath("fonts")
 
 
 class FontWeight(StrEnum):
-  THIN = "Inter-Thin.ttf"
-  EXTRA_LIGHT = "Inter-ExtraLight.ttf"
-  LIGHT = "Inter-Light.ttf"
-  NORMAL = "Inter-Regular.ttf"
-  MEDIUM = "Inter-Medium.ttf"
-  SEMI_BOLD = "Inter-SemiBold.ttf"
-  BOLD = "Inter-Bold.ttf"
-  EXTRA_BOLD = "Inter-ExtraBold.ttf"
-  BLACK = "Inter-Black.ttf"
+  # NMK: Replaced Inter with IBMPlexSansArabic (supports Arabic + Latin)
+  # Arabic font has 4 weights; map other weights to closest match
+  THIN = "IBMPlexSansArabic-Regular.ttf"
+  EXTRA_LIGHT = "IBMPlexSansArabic-Regular.ttf"
+  LIGHT = "IBMPlexSansArabic-Regular.ttf"
+  NORMAL = "IBMPlexSansArabic-Regular.ttf"
+  MEDIUM = "IBMPlexSansArabic-Medium.ttf"
+  SEMI_BOLD = "IBMPlexSansArabic-SemiBold.ttf"
+  BOLD = "IBMPlexSansArabic-Bold.ttf"
+  EXTRA_BOLD = "IBMPlexSansArabic-Bold.ttf"
+  BLACK = "IBMPlexSansArabic-Bold.ttf"
 
 
 @dataclass
@@ -326,7 +328,16 @@ class GuiApplication:
     for layout in KEYBOARD_LAYOUTS.values():
       all_chars.update(key for row in layout for key in row)
     all_chars = "".join(all_chars)
-    all_chars += "–✓×°"
+    all_chars += "–✓×°«»"
+
+    # NMK: Essential Arabic Unicode ranges only (~400 codepoints)
+    # Basic block has the letters; Presentation Forms-B has contextual shapes
+    arabic_ranges = [
+      (0x0600, 0x06FF),  # Arabic basic (256)
+      (0xFE70, 0xFEFF),  # Arabic Presentation Forms-B (144) — contextual forms
+    ]
+    for start, end in arabic_ranges:
+      all_chars += "".join(chr(cp) for cp in range(start, end + 1))
 
     codepoint_count = rl.ffi.new("int *", 1)
     codepoints = rl.load_codepoints(all_chars, codepoint_count)

@@ -1,18 +1,27 @@
 import pyray as rl
 from enum import IntEnum
 import cereal.messaging as messaging
+from openpilot.common.params import Params
 from openpilot.selfdrive.ui.layouts.sidebar import Sidebar, SIDEBAR_WIDTH
 from openpilot.selfdrive.ui.layouts.home import HomeLayout
 from openpilot.selfdrive.ui.layouts.settings.settings import SettingsLayout, PanelType
+from openpilot.selfdrive.ui.layouts.welcome import WelcomeScreen
+from openpilot.selfdrive.ui.layouts.terms import TermsScreen
+from openpilot.selfdrive.ui.layouts.training import TrainingScreen
+from openpilot.system.version import terms_version, training_version
 from openpilot.selfdrive.ui.onroad.augmented_road_view import AugmentedRoadView
 from openpilot.selfdrive.ui.ui_state import device, ui_state
+from openpilot.system.ui.lib.application import gui_app
 from openpilot.system.ui.widgets import Widget
 
 
 class MainState(IntEnum):
-  HOME = 0
-  SETTINGS = 1
-  ONROAD = 2
+  WELCOME = 0
+  TERMS = 1
+  TRAINING = 2
+  HOME = 3
+  SETTINGS = 4
+  ONROAD = 5
 
 
 class MainLayout(Widget):
@@ -20,13 +29,49 @@ class MainLayout(Widget):
     super().__init__()
 
     self._pm = messaging.PubMaster(['bookmarkButton'])
+    self._params = Params()
 
     self._sidebar = Sidebar()
-    self._current_mode = MainState.HOME
     self._prev_onroad = False
 
+    # NMK: Check onboarding completion state
+    # We use HasAcceptedTerms as the gate for both Welcome and Terms screens
+    # (Welcome -> Terms is sequential; both un-done until terms accepted)
+    def _param_str(key):
+      v = self._params.get(key)
+      if v is None:
+        return None
+      if isinstance(v, bytes):
+        try:
+          return v.decode("utf8")
+        except UnicodeDecodeError:
+          return None
+      return v
+
+    terms_done = _param_str("HasAcceptedTerms") == terms_version
+    training_done = _param_str("CompletedTrainingVersion") == training_version
+
+    if not terms_done:
+      self._current_mode = MainState.WELCOME
+    elif not training_done:
+      self._current_mode = MainState.TRAINING
+    else:
+      self._current_mode = MainState.HOME
+
     # Initialize layouts
-    self._layouts = {MainState.HOME: HomeLayout(), MainState.SETTINGS: SettingsLayout(), MainState.ONROAD: AugmentedRoadView()}
+    self._layouts = {
+      MainState.WELCOME: WelcomeScreen(on_complete=self._on_welcome_complete),
+      MainState.TERMS: TermsScreen(on_accept=self._on_terms_accept,
+                                   on_decline=self._on_terms_decline),
+      MainState.TRAINING: TrainingScreen(on_complete=self._on_training_complete),
+      MainState.HOME: HomeLayout(),
+      MainState.SETTINGS: SettingsLayout(),
+      MainState.ONROAD: AugmentedRoadView(),
+    }
+
+    # Hide sidebar during onboarding flow
+    if self._current_mode in (MainState.WELCOME, MainState.TERMS, MainState.TRAINING):
+      self._sidebar.set_visible(False)
 
     self._sidebar_rect = rl.Rectangle(0, 0, 0, 0)
     self._content_rect = rl.Rectangle(0, 0, 0, 0)
@@ -59,6 +104,10 @@ class MainLayout(Widget):
       self._set_mode_for_state()
 
   def _set_mode_for_state(self):
+    # NMK: Don't override onboarding flow states
+    if self._current_mode in (MainState.WELCOME, MainState.TERMS, MainState.TRAINING):
+      return
+
     if ui_state.started:
       # Don't hide sidebar from interactive timeout
       if self._current_mode != MainState.ONROAD:
@@ -81,6 +130,23 @@ class MainLayout(Widget):
 
   def _on_settings_clicked(self):
     self.open_settings(PanelType.DEVICE)
+
+  def _on_welcome_complete(self):
+    # NMK: After welcome → terms screen
+    self._set_current_layout(MainState.TERMS)
+
+  def _on_terms_accept(self):
+    # NMK: After terms accept → training screen
+    self._set_current_layout(MainState.TRAINING)
+
+  def _on_terms_decline(self):
+    # NMK: User declined terms → close UI (manager will restart)
+    gui_app.request_close()
+
+  def _on_training_complete(self):
+    # NMK: Training done → home (sidebar visible from now on)
+    self._set_current_layout(MainState.HOME)
+    self._sidebar.set_visible(True)
 
   def _on_bookmark_clicked(self):
     user_bookmark = messaging.new_message('bookmarkButton')
