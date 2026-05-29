@@ -48,7 +48,7 @@ def manager_init() -> None:
   if not params.get("LanguageSetting"):
     params.put("LanguageSetting", "main_ar")
   # NMK bool params (put_bool للـ BOOL keys)
-  for _nmk_bk in ("IsMetric", "IsLdwEnabled", "HasCompletedSetup"):
+  for _nmk_bk in ("IsMetric", "IsLdwEnabled"):
     if not params.get_bool(_nmk_bk):
       params.put_bool(_nmk_bk, True)
 
