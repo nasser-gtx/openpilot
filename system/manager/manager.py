@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import datetime
+import hashlib
 import os
 import signal
 import sys
@@ -47,10 +48,21 @@ def manager_init() -> None:
     ("LanguageSetting", "main_ar"),
     ("IsMetric", "1"),
     ("IsLdwEnabled", "1"),
+    ("HasCompletedSetup", "1"),
   ]
   for nmk_k, nmk_v in nmk_defaults:
     if not params.get(nmk_k):
       params.put(nmk_k, nmk_v)
+
+  # NMK Ai: توليد DongleId محلي (يتجاوز شاشة "تسجيل")
+  _nmk_dongle = params.get("DongleId")
+  if not _nmk_dongle or _nmk_dongle == b"UnregisteredDevice":
+    try:
+      _nmk_serial = open('/persist/comma/serial').read().strip()
+    except (FileNotFoundError, IOError):
+      _nmk_serial = os.uname().nodename
+    _nmk_id = "nmk" + hashlib.md5(_nmk_serial.encode()).hexdigest()[:13]
+    params.put("DongleId", _nmk_id)
 
   # set unset params to their default value
   for k in params.all_keys():
