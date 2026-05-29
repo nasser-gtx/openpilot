@@ -8,4 +8,7 @@
 export ATHENA_HOST=''
 export API_HOST=''
 
+# NMK: ensure unified 'nmk' SSH user exists (idempotent, self-healing on boot)
+"$(dirname "$0")/tools/nmk/setup_device.sh" || true
+
 exec ./launch_chffrplus.sh
