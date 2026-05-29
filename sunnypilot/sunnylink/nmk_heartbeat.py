@@ -15,7 +15,7 @@ def main():
     p = Params()
     while True:
         if has_internet():
-            p.put("LastAthenaPingTime", str(int(time.time() * 1e9)))
+            p.put("LastAthenaPingTime", int(time.time() * 1e9))
         time.sleep(30)
 
 if __name__ == "__main__":
