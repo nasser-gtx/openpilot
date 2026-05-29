@@ -4,6 +4,7 @@ import json
 import jwt
 from pathlib import Path
 from datetime import datetime, timedelta, UTC
+
 from openpilot.common.api import api_get
 from openpilot.common.params import Params
 from openpilot.common.spinner import Spinner
@@ -12,69 +13,46 @@ from openpilot.system.hardware import HARDWARE, PC
 from openpilot.system.hardware.hw import Paths
 from openpilot.common.swaglog import cloudlog
 
+
 UNREGISTERED_DONGLE_ID = "UnregisteredDevice"
+
 
 def is_registered_device() -> bool:
   dongle = Params().get("DongleId")
   return dongle not in (None, UNREGISTERED_DONGLE_ID)
 
 
-def ensure_persist_registration_keys():
-  # Auto-create the device SSH keypair if it's missing so registration never blocks. (NMK)
-  import os
-  import subprocess
-
-  # keep in sync with where register() reads the keys below
-  key_dir = Paths.persist_root() + "/comma"
-  priv = key_dir + "/id_rsa"
-  pub = key_dir + "/id_rsa.pub"
-
-  os.makedirs(key_dir, exist_ok=True)
-
-  if not os.path.exists(priv) or not os.path.exists(pub):
-    # Generate a PEM RSA keypair with openssl (matches comma's provisioning).
-    # NOTE: ssh-keygen's default OpenSSH key format is rejected by PyJWT's RS256,
-    # so we must use openssl to get PEM private + PEM public keys.
-    subprocess.check_call(["openssl", "genrsa", "-out", priv, "2048"],
-                          stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    subprocess.check_call(["openssl", "rsa", "-in", priv, "-pubout", "-out", pub],
-                          stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
-  os.chmod(key_dir, 0o700)
-  os.chmod(priv, 0o600)
-  os.chmod(pub, 0o644)
-
-
 def register(show_spinner=False) -> str | None:
-  ensure_persist_registration_keys()
   params = Params()
-  #return UNREGISTERED_DONGLE_ID
   dongle_id: str | None = params.get("DongleId")
   if dongle_id is None and Path(Paths.persist_root()+"/comma/dongle_id").is_file():
     # not all devices will have this; added early in comma 3X production (2/28/24)
     with open(Paths.persist_root()+"/comma/dongle_id") as f:
       dongle_id = f.read().strip()
 
-  pubkey = Path(Paths.persist_root()+"/comma/id_rsa.pub")
-  #if not pubkey.is_file():
-    #dongle_id = UNREGISTERED_DONGLE_ID
-    #cloudlog.warning(f"missing public key: {pubkey}")
+  # Read the registration keypair safely. If it's missing we must NOT crash
+  # manager.py - we fall back to UNREGISTERED_DONGLE_ID instead.
+  private_key = public_key = None
+  try:
+    with open(Paths.persist_root()+"/comma/id_rsa.pub") as f1, open(Paths.persist_root()+"/comma/id_rsa") as f2:
+      public_key = f1.read()
+      private_key = f2.read()
+  except OSError:
+    pass
 
-  if dongle_id in (None, UNREGISTERED_DONGLE_ID):
+  if not public_key:
+    dongle_id = UNREGISTERED_DONGLE_ID
+    cloudlog.warning("missing public key")
+  elif dongle_id in (None, UNREGISTERED_DONGLE_ID):
     if show_spinner:
       spinner = Spinner()
       spinner.update("registering device")
 
-    # Create registration token, in the future, this key will make JWTs directly
-    with open(Paths.persist_root()+"/comma/id_rsa.pub") as f1, open(Paths.persist_root()+"/comma/id_rsa") as f2:
-      public_key = f1.read()
-      private_key = f2.read()
-
     # Block until we get the imei
     serial = HARDWARE.get_serial()
     start_time = time.monotonic()
-    imei1='865420071781912'
-    imei2='865420071781904'
+    imei1 = '865420071781912'
+    imei2 = '865420071781904'
     while imei1 is None and imei2 is None:
       try:
         imei1, imei2 = HARDWARE.get_imei(0), HARDWARE.get_imei(1)
@@ -115,7 +93,7 @@ def register(show_spinner=False) -> str | None:
 
       if time.monotonic() - start_time > 60 and show_spinner:
         spinner.update(f"registering device - serial: {serial}, IMEI: ({imei1}, {imei2})")
-        #return UNREGISTERED_DONGLE_ID # hotfix to prevent an infinite wait for registration
+        return UNREGISTERED_DONGLE_ID  # hotfix to prevent an infinite wait for registration
 
     if show_spinner:
       spinner.close()
@@ -125,6 +103,7 @@ def register(show_spinner=False) -> str | None:
 
   # set_offroad_alert("Offroad_UnregisteredHardware", (dongle_id == UNREGISTERED_DONGLE_ID) and not PC)
   return dongle_id
+
 
 if __name__ == "__main__":
   print(register())
