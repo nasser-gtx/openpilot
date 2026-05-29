@@ -20,6 +20,7 @@ def is_registered_device() -> bool:
 
 
 def ensure_persist_registration_keys():
+  # Auto-create the device SSH keypair if it's missing so registration never blocks. (NMK)
   import os
   import subprocess
 
