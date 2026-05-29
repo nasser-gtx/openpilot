@@ -41,6 +41,17 @@ def manager_init() -> None:
   if params.get_bool("RecordFrontLock"):
     params.put_bool("RecordFront", True)
 
+
+  # NMK Ai defaults — ضمان القيم الافتراضية لأي تثبيت جديد
+  nmk_defaults = [
+    ("LanguageSetting", "main_ar"),
+    ("IsMetric", "1"),
+    ("IsLdwEnabled", "1"),
+  ]
+  for nmk_k, nmk_v in nmk_defaults:
+    if not params.get(nmk_k):
+      params.put(nmk_k, nmk_v)
+
   # set unset params to their default value
   for k in params.all_keys():
     default_value = params.get_default_value(k)

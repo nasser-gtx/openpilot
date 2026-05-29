@@ -109,6 +109,7 @@ def and_(*fns):
 
 procs = [
   DaemonProcess("manage_athenad", "system.athena.manage_athenad", "AthenadPid"),
+  PythonProcess("nmk_heartbeat", "sunnypilot.sunnylink.nmk_heartbeat", always_run, enabled=True),
 
   #NativeProcess("loggerd", "system/loggerd", ["./loggerd"], logging),
   NativeProcess("encoderd", "system/loggerd", ["./encoderd"], only_onroad),
