@@ -44,19 +44,17 @@ def manager_init() -> None:
 
 
   # NMK Ai defaults — ضمان القيم الافتراضية لأي تثبيت جديد
-  nmk_defaults = [
-    ("LanguageSetting", "main_ar"),
-    ("IsMetric", "1"),
-    ("IsLdwEnabled", "1"),
-    ("HasCompletedSetup", "1"),
-  ]
-  for nmk_k, nmk_v in nmk_defaults:
-    if not params.get(nmk_k):
-      params.put(nmk_k, nmk_v)
+  # NMK string params
+  if not params.get("LanguageSetting"):
+    params.put("LanguageSetting", "main_ar")
+  # NMK bool params (put_bool للـ BOOL keys)
+  for _nmk_bk in ("IsMetric", "IsLdwEnabled", "HasCompletedSetup"):
+    if not params.get_bool(_nmk_bk):
+      params.put_bool(_nmk_bk, True)
 
   # NMK Ai: توليد DongleId محلي (يتجاوز شاشة "تسجيل")
   _nmk_dongle = params.get("DongleId")
-  if not _nmk_dongle or _nmk_dongle == b"UnregisteredDevice":
+  if not _nmk_dongle or _nmk_dongle == UNREGISTERED_DONGLE_ID:
     try:
       _nmk_serial = open('/persist/comma/serial').read().strip()
     except (FileNotFoundError, IOError):
