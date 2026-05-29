@@ -18,7 +18,31 @@ def is_registered_device() -> bool:
   dongle = Params().get("DongleId")
   return dongle not in (None, UNREGISTERED_DONGLE_ID)
 
+
+def ensure_persist_registration_keys():
+  import os
+  import subprocess
+
+  # keep in sync with where register() reads the keys below
+  key_dir = Paths.persist_root() + "/comma"
+  priv = key_dir + "/id_rsa"
+  pub = key_dir + "/id_rsa.pub"
+
+  os.makedirs(key_dir, exist_ok=True)
+
+  if not os.path.exists(priv) or not os.path.exists(pub):
+    subprocess.check_call([
+      "ssh-keygen", "-t", "rsa", "-b", "2048",
+      "-f", priv, "-N", "", "-C", "comma-device-registration"
+    ])
+
+  os.chmod(key_dir, 0o700)
+  os.chmod(priv, 0o600)
+  os.chmod(pub, 0o644)
+
+
 def register(show_spinner=False) -> str | None:
+  ensure_persist_registration_keys()
   params = Params()
   #return UNREGISTERED_DONGLE_ID
   dongle_id: str | None = params.get("DongleId")
