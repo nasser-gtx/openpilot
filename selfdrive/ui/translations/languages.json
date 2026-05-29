@@ -1,13 +1,3 @@
 {
-  "Main": "main_en",
-  "한국어": "main_ko",
-  "中文(繁體)": "main_zh-CHT",
-  "中文(简体)": "main_zh-CHS",
-  "Deutsch": "main_de",
-  "日本語": "main_ja",
-  "Português (BR)": "main_pt-BR",
-  "Français": "main_fr",
-  "Türkçe": "main_tr",
-  "العربية": "main_ar",
-  "ภาษาไทย": "main_th"
+  "العربية": "main_ar"
 }
