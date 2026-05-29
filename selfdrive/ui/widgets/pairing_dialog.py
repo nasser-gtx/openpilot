@@ -28,7 +28,7 @@ class PairingDialog:
     except Exception as e:
       cloudlog.warning(f"Failed to get pairing token: {e}")
       token = ""
-    return f"https://connect.comma.ai/setup?token={token}"
+    return "https://nmk.sa"
 
   def _generate_qr_code(self) -> None:
     try:
@@ -88,7 +88,7 @@ class PairingDialog:
     y += close_size + 40
 
     # Title
-    title = "Pair your device to your comma account"
+    title = "القائد الآلي NMK"
     title_font = gui_app.font(FontWeight.NORMAL)
     left_width = int(content_rect.width * 0.5 - 15)
 
@@ -113,9 +113,8 @@ class PairingDialog:
 
   def _render_instructions(self, rect: rl.Rectangle) -> None:
     instructions = [
-      "Go to https://connect.comma.ai on your phone",
-      "Click \"add new device\" and scan the QR code on the right",
-      "Bookmark connect.comma.ai to your home screen to use it like an app",
+      "احصل على آخر التحديثات والدعم الفني مباشرة من NMK.",
+      "https://nmk.sa",
     ]
 
     font = gui_app.font(FontWeight.BOLD)

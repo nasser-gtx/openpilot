@@ -34,7 +34,7 @@ class PrimeWidget(Widget):
     # Description with wrapping
     desc_y = y + 140
     font = gui_app.font(FontWeight.LIGHT)
-    wrapped_text = "\n".join(wrap_text(font, "Become a comma prime member at connect.comma.ai", 56, int(w)))
+    wrapped_text = "\n".join(wrap_text(font, "Become an NMK Prime member at nmk.sa", 56, int(w)))
     text_size = measure_text_cached(font, wrapped_text, 56)
     rl.draw_text_ex(font, wrapped_text, rl.Vector2(x, desc_y), 56, 0, rl.WHITE)
 
@@ -59,4 +59,4 @@ class PrimeWidget(Widget):
 
     font = gui_app.font(FontWeight.BOLD)
     rl.draw_text_ex(font, "✓ SUBSCRIBED", rl.Vector2(x, y), 41, 0, rl.Color(134, 255, 78, 255))
-    rl.draw_text_ex(font, "comma prime", rl.Vector2(x, y + 61), 75, 0, rl.WHITE)
+    rl.draw_text_ex(font, "NMK Prime", rl.Vector2(x, y + 61), 75, 0, rl.WHITE)

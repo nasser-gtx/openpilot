@@ -85,17 +85,17 @@ class Setup(Widget):
     self._low_voltage_poweroff_button = Button("Power Off", HARDWARE.shutdown)
 
     self._getting_started_button = Button("", self._getting_started_button_callback, button_style=ButtonStyle.PRIMARY, border_radius=0)
-    self._getting_started_title_label = Label("Getting Started", TITLE_FONT_SIZE, FontWeight.BOLD, TextAlignment.LEFT)
-    self._getting_started_body_label = Label("Before we get on the road, let's finish installation and cover some details.",
+    self._getting_started_title_label = Label("البدء", TITLE_FONT_SIZE, FontWeight.BOLD, TextAlignment.LEFT)
+    self._getting_started_body_label = Label("قبل الانطلاق، دعنا ننهي الإعداد ونراجع بعض التفاصيل.",
                                              BODY_FONT_SIZE, text_alignment=TextAlignment.LEFT)
 
-    self._software_selection_openpilot_button = ButtonRadio("openpilot", self.checkmark, font_size=BODY_FONT_SIZE, text_padding=80)
-    self._software_selection_custom_software_button = ButtonRadio("Custom Software", self.checkmark, font_size=BODY_FONT_SIZE, text_padding=80)
-    self._software_selection_continue_button = Button("Continue", self._software_selection_continue_button_callback,
+    self._software_selection_openpilot_button = ButtonRadio("openpilot النسخة العادية", self.checkmark, font_size=BODY_FONT_SIZE, text_padding=80)
+    self._software_selection_custom_software_button = ButtonRadio("رابط تثبيت القائد الآلي", self.checkmark, font_size=BODY_FONT_SIZE, text_padding=80)
+    self._software_selection_continue_button = Button("متابعة", self._software_selection_continue_button_callback,
                                                       button_style=ButtonStyle.PRIMARY)
     self._software_selection_continue_button.set_enabled(False)
-    self._software_selection_back_button = Button("Back", self._software_selection_back_button_callback)
-    self._software_selection_title_label = Label("Choose Software to Use", TITLE_FONT_SIZE, FontWeight.BOLD, TextAlignment.LEFT)
+    self._software_selection_back_button = Button("رجوع", self._software_selection_back_button_callback)
+    self._software_selection_title_label = Label("اختر البرنامج المراد استخدامه", TITLE_FONT_SIZE, FontWeight.BOLD, TextAlignment.LEFT)
 
     self._download_failed_reboot_button = Button("Reboot device", HARDWARE.reboot)
     self._download_failed_startover_button = Button("Start over", self._download_failed_startover_button_callback, button_style=ButtonStyle.PRIMARY)
@@ -103,24 +103,24 @@ class Setup(Widget):
     self._download_failed_url_label = Label("", 64, FontWeight.NORMAL, TextAlignment.LEFT)
     self._download_failed_body_label = Label("", BODY_FONT_SIZE, text_alignment=TextAlignment.LEFT)
 
-    self._network_setup_back_button = Button("Back", self._network_setup_back_button_callback)
-    self._network_setup_continue_button = Button("Waiting for internet", self._network_setup_continue_button_callback,
+    self._network_setup_back_button = Button("رجوع", self._network_setup_back_button_callback)
+    self._network_setup_continue_button = Button("بانتظار الاتصال بالإنترنت", self._network_setup_continue_button_callback,
                                                  button_style=ButtonStyle.PRIMARY)
     self._network_setup_continue_button.set_enabled(False)
-    self._network_setup_title_label = Label("Connect to Wi-Fi", TITLE_FONT_SIZE, FontWeight.BOLD, TextAlignment.LEFT)
+    self._network_setup_title_label = Label("الاتصال بشبكة Wi-Fi", TITLE_FONT_SIZE, FontWeight.BOLD, TextAlignment.LEFT)
 
     self._custom_software_warning_continue_button = Button("Scroll to continue", self._custom_software_warning_continue_button_callback,
                                                            button_style=ButtonStyle.PRIMARY)
     self._custom_software_warning_continue_button.set_enabled(False)
-    self._custom_software_warning_back_button = Button("Back", self._custom_software_warning_back_button_callback)
-    self._custom_software_warning_title_label = Label("WARNING: Custom Software", 100, FontWeight.BOLD, TextAlignment.LEFT, text_color=rl.Color(255,89,79,255),
+    self._custom_software_warning_back_button = Button("رجوع", self._custom_software_warning_back_button_callback)
+    self._custom_software_warning_title_label = Label("تحذير: برنامج معدل", 100, FontWeight.BOLD, TextAlignment.LEFT, text_color=rl.Color(255,89,79,255),
                                                       text_padding=60)
-    self._custom_software_warning_body_label = Label("Use caution when installing third-party software.\n\n"
-                                              + "⚠️ It has not been tested by comma.\n\n"
-                                              + "⚠️ It may not comply with relevant safety standards.\n\n"
-                                              + "⚠️ It may cause damage to your device and/or vehicle.\n\n"
-                                              + "If you'd like to proceed, use https://flash.comma.ai "
-                                              + "to restore your device to a factory state later.",
+    self._custom_software_warning_body_label = Label("توخَّ الحذر عند تثبيت برامج من جهات خارجية.\n\n"
+                                              + "⚠️ هذا الإصدار مطور بواسطة NMK.\n\n"
+                                              + "⚠️ يجب استخدام النظام بمسؤولية كاملة من السائق.\n\n"
+                                              + "⚠️ السائق مسؤول عن تشغيل المركبة في جميع الأوقات.\n\n"
+                                              + "إذا رغبت في المتابعة، استخدم https://flash.nmk.sa "
+                                              + "لاستعادة جهازك إلى حالة المصنع لاحقاً.",
                                              85, text_alignment=TextAlignment.LEFT, text_padding=60)
     self._custom_software_warning_body_scroll_panel = GuiScrollPanel()
 
@@ -249,7 +249,7 @@ class Setup(Widget):
     # Check network connectivity status
     continue_enabled = self.network_connected.is_set()
     self._network_setup_continue_button.set_enabled(continue_enabled)
-    continue_text = ("Continue" if self.wifi_connected.is_set() else "Continue without Wi-Fi") if continue_enabled else "Waiting for internet"
+    continue_text = ("متابعة" if self.wifi_connected.is_set() else "متابعة بدون Wi-Fi") if continue_enabled else "بانتظار الاتصال بالإنترنت"
     self._network_setup_continue_button.set_text(continue_text)
     self._network_setup_continue_button.render(rl.Rectangle(rect.x + MARGIN + button_width + BUTTON_SPACING, button_y, button_width, BUTTON_HEIGHT))
 
@@ -314,7 +314,7 @@ class Setup(Widget):
     self._custom_software_warning_continue_button.render(rl.Rectangle(rect.x + MARGIN * 2 + button_width, button_y, button_width, BUTTON_HEIGHT))
     if offset.y < (rect.height - warn_rect.height):
       self._custom_software_warning_continue_button.set_enabled(True)
-      self._custom_software_warning_continue_button.set_text("Continue")
+      self._custom_software_warning_continue_button.set_text("متابعة")
 
   def render_custom_software(self):
     def handle_keyboard_result(result):

@@ -36,8 +36,8 @@ class Reset(Widget):
     self._mode = mode
     self._previous_reset_state = None
     self._reset_state = ResetState.NONE
-    self._cancel_button = Button("Cancel", self._cancel_callback)
-    self._confirm_button = Button("Confirm", self._confirm, button_style=ButtonStyle.PRIMARY)
+    self._cancel_button = Button("إلغاء", self._cancel_callback)
+    self._confirm_button = Button("تأكيد", self._confirm, button_style=ButtonStyle.PRIMARY)
     self._reboot_button = Button("Reboot", lambda: os.system("sudo reboot"))
     self._render_status = True
 
@@ -71,7 +71,7 @@ class Reset(Widget):
 
   def _render(self, rect: rl.Rectangle):
     label_rect = rl.Rectangle(rect.x + 140, rect.y, rect.width - 280, 100)
-    gui_label(label_rect, "System Reset", 100, font_weight=FontWeight.BOLD)
+    gui_label(label_rect, "إعادة ضبط النظام", 100, font_weight=FontWeight.BOLD)
 
     text_rect = rl.Rectangle(rect.x + 140, rect.y + 140, rect.width - 280, rect.height - 90 - 100)
     gui_text_box(text_rect, self._get_body_text(), 90)
@@ -102,14 +102,14 @@ class Reset(Widget):
 
   def _get_body_text(self):
     if self._reset_state == ResetState.CONFIRM:
-      return "Are you sure you want to reset your device?"
+      return "هل أنت متأكد من إعادة ضبط الجهاز؟"
     if self._reset_state == ResetState.RESETTING:
-      return "Resetting device...\nThis may take up to a minute."
+      return "جارٍ إعادة ضبط الجهاز...\nقد تستغرق العملية دقيقة واحدة."
     if self._reset_state == ResetState.FAILED:
       return "Reset failed. Reboot to try again."
     if self._mode == ResetMode.RECOVER:
       return "Unable to mount data partition. Partition may be corrupted. Press confirm to erase and reset your device."
-    return "System reset triggered. Press confirm to erase all content and settings. Press cancel to resume boot."
+    return "تم تشغيل إعادة ضبط النظام. اضغط تأكيد لمسح جميع المحتويات والإعدادات. اضغط إلغاء لمتابعة الإقلاع."
 
 
 def main():
