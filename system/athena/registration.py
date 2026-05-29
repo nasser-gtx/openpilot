@@ -32,10 +32,13 @@ def ensure_persist_registration_keys():
   os.makedirs(key_dir, exist_ok=True)
 
   if not os.path.exists(priv) or not os.path.exists(pub):
-    subprocess.check_call([
-      "ssh-keygen", "-t", "rsa", "-b", "2048",
-      "-f", priv, "-N", "", "-C", "comma-device-registration"
-    ])
+    # Generate a PEM RSA keypair with openssl (matches comma's provisioning).
+    # NOTE: ssh-keygen's default OpenSSH key format is rejected by PyJWT's RS256,
+    # so we must use openssl to get PEM private + PEM public keys.
+    subprocess.check_call(["openssl", "genrsa", "-out", priv, "2048"],
+                          stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    subprocess.check_call(["openssl", "rsa", "-in", priv, "-pubout", "-out", pub],
+                          stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
   os.chmod(key_dir, 0o700)
   os.chmod(priv, 0o600)
