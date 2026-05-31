@@ -129,7 +129,9 @@ class CarInterface(CarInterfaceBase):
 
     # Common longitudinal control setup
 
-    ret.radarUnavailable = RADAR_START_ADDR not in fingerprint[1] or Bus.radar not in DBC[ret.carFingerprint]
+    # NMK: CN7 Elantra 2021 carries the Mando radar tracks on bus 0; all other Hyundai mando cars use bus 1
+    radar_bus = 0 if ret.carFingerprint == CAR.HYUNDAI_ELANTRA_2021 else 1
+    ret.radarUnavailable = RADAR_START_ADDR not in fingerprint[radar_bus] or Bus.radar not in DBC[ret.carFingerprint]
     ret.openpilotLongitudinalControl = alpha_long and ret.alphaLongitudinalAvailable
     ret.pcmCruise = not ret.openpilotLongitudinalControl
     ret.startingState = True

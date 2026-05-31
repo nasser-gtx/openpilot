@@ -200,7 +200,8 @@ class CAR(Platforms):
   HYUNDAI_ELANTRA_2021 = HyundaiPlatformConfig(
     [HyundaiCarDocs("Hyundai Elantra 2021-23", video="https://youtu.be/_EdYQtV52-c", car_parts=CarParts.common([CarHarness.hyundai_k]))],
     CarSpecs(mass=2800 * CV.LB_TO_KG, wheelbase=2.72, steerRatio=12.9, tireStiffnessFactor=0.65),
-    flags=HyundaiFlags.CHECKSUM_CRC8,
+    # NMK: this car's Mando front radar broadcasts tracks on bus 0 (see hyundai/radar_interface.py + interface.py)
+    flags=HyundaiFlags.CHECKSUM_CRC8 | HyundaiFlags.MANDO_RADAR,
   )
   HYUNDAI_ELANTRA_HEV_2021 = HyundaiPlatformConfig(
     [HyundaiCarDocs("Hyundai Elantra Hybrid 2021-23", video="https://youtu.be/_EdYQtV52-c",

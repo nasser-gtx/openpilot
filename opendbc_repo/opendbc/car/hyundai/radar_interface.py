@@ -3,7 +3,7 @@ import math
 from opendbc.can import CANParser
 from opendbc.car import Bus, structs
 from opendbc.car.interfaces import RadarInterfaceBase
-from opendbc.car.hyundai.values import DBC
+from opendbc.car.hyundai.values import DBC, CAR
 
 from opendbc.sunnypilot.car.hyundai.radar_interface_ext import RadarInterfaceExt
 
@@ -17,8 +17,15 @@ def get_radar_can_parser(CP):
   if Bus.radar not in DBC[CP.carFingerprint]:
     return None
 
-  messages = [(f"RADAR_TRACK_{addr:x}", 50) for addr in range(RADAR_START_ADDR, RADAR_START_ADDR + RADAR_MSG_COUNT)]
-  return CANParser(DBC[CP.carFingerprint][Bus.radar], messages, 1)
+  is_elantra = CP.carFingerprint == CAR.HYUNDAI_ELANTRA_2021
+  # NMK: CN7 Elantra 2021 only broadcasts a subset of the 32 radar track slots, so mark them
+  # ignore-alive (NaN freq) -> missing slots don't fail CAN validity (avoids a false canError).
+  # Present tracks are still parsed normally. Other Hyundai mando radars send all 32 @50Hz.
+  radar_freq = math.nan if is_elantra else 50
+  messages = [(f"RADAR_TRACK_{addr:x}", radar_freq) for addr in range(RADAR_START_ADDR, RADAR_START_ADDR + RADAR_MSG_COUNT)]
+  # CN7 Elantra 2021 carries the Mando radar tracks on bus 0; other Hyundai mando radars are on bus 1
+  radar_bus = 0 if is_elantra else 1
+  return CANParser(DBC[CP.carFingerprint][Bus.radar], messages, radar_bus)
 
 
 class RadarInterface(RadarInterfaceBase, RadarInterfaceExt):
@@ -26,7 +33,13 @@ class RadarInterface(RadarInterfaceBase, RadarInterfaceExt):
     RadarInterfaceBase.__init__(self, CP, CP_SP)
     RadarInterfaceExt.__init__(self, CP, CP_SP)
     self.updated_messages = set()
-    self.trigger_msg = RADAR_START_ADDR + RADAR_MSG_COUNT - 1
+    # NMK: CN7 Elantra 2021 only broadcasts a reduced radar track set on bus 0 and never sends the
+    # last slot (0x51f), so the stock trigger would never fire. Trigger on 0x50c (seen every cycle @10Hz).
+    # NOTE: validate/adjust this against a real drive log if leads look choppy.
+    if CP.carFingerprint == CAR.HYUNDAI_ELANTRA_2021:
+      self.trigger_msg = 0x50c
+    else:
+      self.trigger_msg = RADAR_START_ADDR + RADAR_MSG_COUNT - 1
     self.track_id = 0
 
     self.radar_off_can = CP.radarUnavailable
