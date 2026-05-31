@@ -258,7 +258,7 @@ This only toggles the visibility of the controls; it does not toggle the actual 
     </message>
     <message>
         <source>Copyparty is a very capable file server, you can use it to download your routes, view your logs and even make some edits on some files from your browser. Requires you to connect to your comma locally via it&apos;s IP.</source>
-        <translation>Copyparty خادم ملفات قوي، يمكنك استخدامه لتنزيل رحلاتك ومراجعة سجلاتك وحتى تعديل بعض الملفات من المتصفح. يتطلب الاتصال بجهاز NMK محلياً عبر IP.</translation>
+        <translation>Copyparty خادم ملفات قوي، يمكنك استخدامه لتنزيل رحلاتك ومراجعة سجلاتك وحتى تعديل بعض الملفات من المتصفح. يتطلب الاتصال بجهاز nmk.link محلياً عبر IP.</translation>
     </message>
 </context>
 <context>
@@ -628,7 +628,7 @@ This is the time after which settings UI closes automatically if user is not int
     </message>
     <message>
         <source>Extend your comma device&apos;s storage by inserting a USB drive into the aux port.</source>
-        <translation>وسّع تخزين جهاز NMK بإدخال ذاكرة USB في منفذ aux.</translation>
+        <translation>وسّع تخزين جهاز nmk.link بإدخال ذاكرة USB في منفذ aux.</translation>
     </message>
     <message>
         <source>CHECK</source>
@@ -1406,7 +1406,7 @@ The default software delay value is 0.2</source>
     </message>
     <message>
         <source>&lt;b&gt;Unsupported branch detected&lt;/b&gt; - The current version of &lt;b&gt;&lt;u&gt;%1&lt;/u&gt;&lt;/b&gt; branch is no longer supported on the comma three. Please go to &lt;b&gt;[Device &gt; Software]&lt;/b&gt; and install a supported branch with &lt;b&gt;&lt;u&gt;-tici&lt;/u&gt;&lt;/b&gt; in the branch name for the comma three.</source>
-        <translation>&lt;b&gt;تم اكتشاف فرع غير مدعوم&lt;/b&gt; - النسخة الحالية من فرع &lt;b&gt;&lt;u&gt;%1&lt;/u&gt;&lt;/b&gt; لم تعد مدعومة على جهاز NMK. يرجى الذهاب إلى &lt;b&gt;[الجهاز > البرنامج]&lt;/b&gt; وتثبيت فرع مدعوم يحتوي على &lt;b&gt;&lt;u&gt;-tici&lt;/u&gt;&lt;/b&gt; في اسم الفرع.</translation>
+        <translation>&lt;b&gt;تم اكتشاف فرع غير مدعوم&lt;/b&gt; - النسخة الحالية من فرع &lt;b&gt;&lt;u&gt;%1&lt;/u&gt;&lt;/b&gt; لم تعد مدعومة على جهاز nmk.link. يرجى الذهاب إلى &lt;b&gt;[الجهاز > البرنامج]&lt;/b&gt; وتثبيت فرع مدعوم يحتوي على &lt;b&gt;&lt;u&gt;-tici&lt;/u&gt;&lt;/b&gt; في اسم الفرع.</translation>
     </message>
 </context>
 <context>
@@ -2316,11 +2316,11 @@ Data</source>
     <name>SunnylinkPanel</name>
     <message>
         <source>This is the master switch, it will allow you to cutoff any sunnylink requests should you want to do that.</source>
-        <translation>هذا هو المفتاح الرئيسي، ويسمح لك بإيقاف أي طلبات NMK إذا أردت ذلك.</translation>
+        <translation>هذا هو المفتاح الرئيسي، ويسمح لك بإيقاف أي طلبات nmk.link إذا أردت ذلك.</translation>
     </message>
     <message>
         <source>Enable sunnylink</source>
-        <translation>تفعيل NMK</translation>
+        <translation>تفعيل nmk.link</translation>
     </message>
     <message>
         <source>Sponsor Status</source>
@@ -2332,7 +2332,7 @@ Data</source>
     </message>
     <message>
         <source>Become a sponsor of sunnypilot to get early access to sunnylink features when they become available.</source>
-        <translation>كن راعيا للقائد الآلي للحصول على وصول مبكر إلى ميزات NMK عند توفرها.</translation>
+        <translation>كن راعيا للقائد الآلي للحصول على وصول مبكر إلى ميزات nmk.link عند توفرها.</translation>
     </message>
     <message>
         <source>Pair GitHub Account</source>
@@ -2344,7 +2344,7 @@ Data</source>
     </message>
     <message>
         <source>Pair your GitHub account to grant your device sponsor benefits, including API access on sunnylink.</source>
-        <translation>اقرن حساب GitHub لمنح جهازك مزايا الرعاية، بما في ذلك الوصول إلى API على NMK.</translation>
+        <translation>اقرن حساب GitHub لمنح جهازك مزايا الرعاية، بما في ذلك الوصول إلى API على nmk.link.</translation>
     </message>
     <message>
         <source>N/A</source>
@@ -2352,15 +2352,15 @@ Data</source>
     </message>
     <message>
         <source>sunnylink Dongle ID not found. This may be due to weak internet connection or sunnylink registration issue. Please reboot and try again.</source>
-        <translation>معرف دونجل sunnylink غير موجود. قد يكون السبب اتصال إنترنت ضعيف أو مشكلة في تسجيل sunnylink. يرجى إعادة التشغيل والمحاولة مرة أخرى.</translation>
+        <translation>معرف دونجل nmk.link غير موجود. قد يكون السبب اتصال إنترنت ضعيف أو مشكلة في تسجيل nmk.link. يرجى إعادة التشغيل والمحاولة مرة أخرى.</translation>
     </message>
     <message>
         <source>🎉Welcome back! We&apos;re excited to see you&apos;ve enabled sunnylink again! 🚀</source>
-        <translation>🎉مرحباً بعودتك! يسعدنا أنك فعّلت sunnylink من جديد! 🚀</translation>
+        <translation>🎉مرحباً بعودتك! يسعدنا أنك فعّلت nmk.link من جديد! 🚀</translation>
     </message>
     <message>
         <source>👋Not going to lie, it&apos;s sad to see you disabled sunnylink 😢, but we&apos;ll be here when you&apos;re ready to come back 🎉.</source>
-        <translation>👋بصراحة، يحزننا أنك أوقفت sunnylink 😢، لكننا سنكون هنا عندما تعود 🎉.</translation>
+        <translation>👋بصراحة، يحزننا أنك أوقفت nmk.link 😢، لكننا سنكون هنا عندما تعود 🎉.</translation>
     </message>
     <message>
         <source>Backup Settings</source>
@@ -2471,7 +2471,7 @@ Data</source>
     </message>
     <message>
         <source>Re-enter the &quot;sunnylink&quot; panel to verify sponsorship status</source>
-        <translation>ادخل إلى لوحة "NMK" مرة أخرى للتحقق من حالة الرعاية</translation>
+        <translation>ادخل إلى لوحة "nmk.link" مرة أخرى للتحقق من حالة الرعاية</translation>
     </message>
     <message>
         <source>If sponsorship status was not updated, please contact a moderator on Discord at https://discord.gg/sunnypilot</source>
