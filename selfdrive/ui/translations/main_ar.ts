@@ -2479,7 +2479,7 @@ Data</source>
     </message>
     <message>
         <source>Scan the QR code to visit sunnyhaibin&apos;s GitHub Sponsors page</source>
-        <translation>امسح رمز QR لزيارة صفحة رعاة GitHub الخاصة ب sunnyhaibin</translation>
+        <translation>امسح رمز QR لزيارة صفحة رعاة GitHub الخاصة ب nmk</translation>
     </message>
     <message>
         <source>Choose your sponsorship tier and confirm your support</source>
